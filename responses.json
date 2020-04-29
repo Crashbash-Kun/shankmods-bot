@@ -1,6 +1,4 @@
 {
-  "responses": {
     "ping": "pong",
     "pong": "ping"
-  }
 }
