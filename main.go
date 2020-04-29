@@ -10,6 +10,7 @@ import (
     "os"
     "os/signal"
     "strconv"
+    "strings"
     "syscall"
     "time"
 
@@ -22,7 +23,7 @@ var (
 )
 
 // Stores our responses. These will be updated every so often so we don't have to restart the bot to make changes
-var responses map[string]interface{}
+var responses map[string] string
 
 /*
     Initialization code for the bot. Pulls the required API key from commandline arguments.
@@ -84,7 +85,17 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
         return
     }
     
-    //s.ChannelMessageSend(m.ChannelID, message)
+    // Only look for a command if message starts with a bang
+    if string(m.Content[0]) == "!" {
+        
+        // Get first word, use that to determine what to do
+        var command string
+        command = strings.TrimLeft(m.Content, " ")
+        command = strings.TrimPrefix(command, "!")
+        if responses[command] != "" {
+            s.ChannelMessageSend(m.ChannelID, string(responses[command]))
+        }
+    }
 }
 
 /*
