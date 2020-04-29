@@ -92,6 +92,10 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
         var command string
         command = strings.TrimLeft(m.Content, " ")
         command = strings.TrimPrefix(command, "!")
+        command = strings.ToLower(command)
+        
+        //fmt.Println(command, responses[command])
+        
         if responses[command] != "" {
             s.ChannelMessageSend(m.ChannelID, string(responses[command]))
         }
@@ -133,6 +137,8 @@ func updateResponses(){
             log.Fatal(jsonErr)
             return
         }
+        
+        //fmt.Println(responses)
         
         time.Sleep(5 * time.Minute)
     }
