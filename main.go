@@ -86,7 +86,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
     }
     
     // Only look for a command if message starts with a bang
-    if string(m.Content[0]) == "!" {
+    if len(m.Content) > 0 && strings.HasPrefix(m.Content, "!") {
         
         // Get first word, use that to determine what to do
         var command string
