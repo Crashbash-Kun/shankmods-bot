@@ -110,7 +110,7 @@ func updateResponses(){
         url := "https://raw.githubusercontent.com/Crashbash-Kun/shankmods-bot/master/responses.json"
 
         client := http.Client{
-            Timeout: time.Second * 10,
+            Timeout: time.Second * 60,
         }
 
         req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -120,13 +120,14 @@ func updateResponses(){
         }
 
         res, getErr := client.Do(req)
-        defer res.Body.Close()
         if getErr != nil {
             log.Fatal(getErr)
             return
         }
 
-        body, readErr := ioutil.ReadAll(res.Body)
+        defer res.Body.Close()
+        
+	body, readErr := ioutil.ReadAll(res.Body)
         if readErr != nil {
             log.Fatal(readErr)
             return
@@ -138,9 +139,9 @@ func updateResponses(){
             return
         }
         
-        //fmt.Println(responses)
+        fmt.Println(responses)
         
-        time.Sleep(5 * time.Minute)
+        time.Sleep(150 * time.Second)
     }
 }
 
