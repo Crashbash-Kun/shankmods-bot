@@ -24,7 +24,6 @@ var (
 
 // Stores our responses. These will be updated every so often so we don't have to restart the bot to make changes
 var responses map[string] string
-var commands string
 
 /*
     Initialization code for the bot. Pulls the required API key from commandline arguments.
@@ -86,22 +85,17 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
         return
     }
 
-    if m.Content == "!help" || m.Content == "!commands" {
-        s.ChannelMessageSend(m.ChannelID, "This bot was written by CrashBash.\nCommands available: !users, !commands/help, " + commands)
-        return
-    }
-
     // Only look for a command if message starts with a bang
     if len(m.Content) > 0 && strings.HasPrefix(m.Content, "!") {
-        
+
         // Get first word, use that to determine what to do
         var command string
         command = strings.TrimLeft(m.Content, " ")
         command = strings.TrimPrefix(command, "!")
         command = strings.ToLower(command)
-        
+
         //fmt.Println(command, responses[command])
-        
+
         if responses[command] != "" {
             s.ChannelMessageSend(m.ChannelID, string(responses[command]))
         }
@@ -132,7 +126,7 @@ func updateResponses(){
         }
 
         defer res.Body.Close()
-        
+
 	body, readErr := ioutil.ReadAll(res.Body)
         if readErr != nil {
             log.Fatal(readErr)
@@ -144,15 +138,7 @@ func updateResponses(){
             log.Fatal(jsonErr)
             return
         }
-        
-        keys := make([]string, 0, len(responses))
-        for k := range responses {
-            keys = append(keys, "!" + k)
-        }
-        
-        commands = strings.Join(keys, ", ")
-        //fmt.Println(commands)
-        
+
         time.Sleep(150 * time.Second)
     }
 }
