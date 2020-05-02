@@ -1,8 +1,12 @@
 {
     "18650": "<https:\/\/mabdelectronics.com\/collections\/samsung-sdi-18650-high-drain-flat-top-rechargeable-batteries\/products\/samsung-inr-18650-35e-8a-3500mah-high-drain-flat-top-rechargeable-battery>",
-    "bb": "https:\/\/bitbuilt.net",
-    "bbstore": "https:\/\/store.bitbuilt.net",
-	"wii": "https:\/\/bitbuilt.net\/forums\/index.php?forums\/wii.101\/",
-	"revisions": "https:\/\/bitbuilt.net\/forums\/index.php?threads\/revision-identification-guide.863\/",
-	"trim": "https:\/\/bitbuilt.net\/forums\/index.php?threads\/the-definitive-wii-trimming-guide.198\/"
+    "bb": "<https:\/\/bitbuilt.net>",
+    "bbstore": "<https:\/\/store.bitbuilt.net>",
+    "pms": "<https:\/\/store.bitbuilt.net\/rvl-power-management-system\/>",
+    "gc+": "<https:\/\/store.bitbuilt.net\/gc-v2-0-replacement-controller-board\/>",
+    "wii": "https:\/\/bitbuilt.net\/forums\/index.php?forums\/wii.101\/",
+    "revisions": "https:\/\/bitbuilt.net\/forums\/index.php?threads\/revision-identification-guide.863\/",
+    "trim": "https:\/\/bitbuilt.net\/forums\/index.php?threads\/the-definitive-wii-trimming-guide.198\/",
+    "trim6": "https:\/\/bitbuilt.net\/forums\/index.php?threads\/the-definitive-wii-trimming-guide-6-layer-expansion.860\/",
+    "usb": "<https:\/\/www.amazon.com\/gp\/product\/B0028R3NCU\/>"
 }
