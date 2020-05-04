@@ -1,7 +1,8 @@
 {
     "help": "This bot was written by CrashBash, contact him for adding content. Publicly advertised commands:\n!bb, !bbstore, !pms, !gc+, !wii, !revisions, !trim, !trim6, !usb, !18650",
     "bb": "<https:\/\/bitbuilt.net>",
-    "bbstore": "<https:\/\/store.bitbuilt.net>",
+    "bbf": "<https:\/\/bitbuilt.net>",
+    "bbstore": "<https:\/\/store.bitbuilt.net\/forums>",
     "pms": "The PMS is a custom board designed by Gman that has the combined functionality of voltage regulation and battery management all in a small easy to use board. It is avaiable to purchase from teh BB-store.\n<https:\/\/store.bitbuilt.net\/rvl-power-management-system\/>",
     "gc+": "<https:\/\/store.bitbuilt.net\/gc-v2-0-replacement-controller-board\/>",
     "wii": "<https:\/\/bitbuilt.net\/forums\/index.php?forums\/wii.101\/>",
