@@ -1,0 +1,14 @@
+[Unit]
+Description=Shankmods discord bot daemon
+After=network.target
+
+[Service]
+WorkingDirectory=/home/crash/go/shankmods-bot/
+User=crash
+Environment="API_KEY=<api-key>"
+ExecStart=/home/crash/go/shankmods-bot/shankmods-bot -t $API_KEY
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
