@@ -5,7 +5,6 @@ import (
     "flag"
     "fmt"
     "io/ioutil"
-    "log"
     "net/http"
     "os"
     "os/signal"
@@ -103,44 +102,49 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 }
 
 /*
-    Downloads JSON file from github and updates value in memory
+    Updates the responses value that's held in memory with those stored in JSON on github
 */
 func updateResponses(){
     for {
-        url := "https://raw.githubusercontent.com/Crashbash-Kun/shankmods-bot/master/responses.json"
-
-        client := http.Client{
-            Timeout: time.Second * 60,
-        }
-
-        req, err := http.NewRequest(http.MethodGet, url, nil)
-        if err != nil {
-            log.Fatal(err)
-            return
-        }
-
-        res, getErr := client.Do(req)
-        if getErr != nil {
-            log.Fatal(getErr)
-            return
-        }
-
-        defer res.Body.Close()
-
-	body, readErr := ioutil.ReadAll(res.Body)
-        if readErr != nil {
-            log.Fatal(readErr)
-            return
-        }
-
-        jsonErr := json.Unmarshal(body, &responses)
-        if jsonErr != nil {
-            log.Fatal(jsonErr)
-            return
+        err, body := getResponsesJSON()
+        if err != nil || len(string(body)) == 0 {
+        } else {
+            err := json.Unmarshal(body, &responses)
+            if err != nil {
+                fmt.Println("JSON isn't valid")
+            }
         }
 
         time.Sleep(150 * time.Second)
     }
+}
+
+/*
+    Handles making a GET request to github and returns the json body of said request
+*/
+func getResponsesJSON() (err error, body []byte) {
+    url := "https://raw.githubusercontent.com/Crashbash-Kun/shankmods-bot/master/responses.json"
+    client := http.Client{
+        Timeout: time.Second * 5,
+    }
+
+    req, err := http.NewRequest(http.MethodGet, url, nil)
+    if err != nil {
+        return err, nil
+    }
+
+    res, getErr := client.Do(req)
+    if getErr != nil {
+        return err, nil
+    }
+
+    defer res.Body.Close()
+
+    body, readErr := ioutil.ReadAll(res.Body)
+    if readErr != nil {
+        return err, nil
+    }
+    return nil, body
 }
 
 /*
