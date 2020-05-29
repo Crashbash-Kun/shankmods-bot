@@ -48,6 +48,7 @@ func main() {
     // register callback for new messages
     dg.AddHandler(messageCreate)
 	dg.AddHandler(voiceStateUpdate)
+	dg.AddHandler(messageReactionAdd)
 
     // Open a websocket, listen
     err = dg.Open()
@@ -189,7 +190,7 @@ func voiceStateUpdate(s *discordgo.Session, v *discordgo.VoiceStateUpdate) {
 		if err != nil {
 			fmt.Println("Adding vc role:", err)
 		}
-		
+
 	// Remove role if they join another server's VC chat, or disconnect from VC in the server
 	} else if v.GuildID == guildID {
 		err := s.GuildMemberRoleRemove(guildID, v.UserID, vcRole)
@@ -197,4 +198,110 @@ func voiceStateUpdate(s *discordgo.Session, v *discordgo.VoiceStateUpdate) {
 			fmt.Println("Remove vc role:", err)
 		}
 	}
+}
+
+/*
+
+*/
+func messageReactionAdd(s *discordgo.Session, m *discordgo.MessageReactionAdd) {
+	shankID := "265697070093041666"
+	submissionID := "560905346772762627"
+	fridgeChatID := "715819525517344818"
+	emojiID := "🧲"
+	emojiIDDone :="❤️"
+	requiredLikes := 5
+
+	// Check this is in the right channel
+	if m.ChannelID != submissionID {
+		return
+	}
+
+	// Check not already posted
+	reactors, err := s.MessageReactions(m.ChannelID, m.MessageID, emojiIDDone, 100)
+	if err != nil {
+		fmt.Println("posted-check react check", err)
+		return
+	}
+
+	bot, err := s.User("@me")
+	if err != nil {
+		fmt.Println("@me", err)
+		return
+	}
+	for _, reactor := range reactors {
+		if reactor.ID == bot.ID {
+			return
+		}
+	}
+
+	reactors, err = s.MessageReactions(m.ChannelID, m.MessageID, emojiID, 100)
+	if err != nil {
+		fmt.Println("message reactions", err)
+		return
+	}
+
+	shouldBePosted := len(reactors) >= requiredLikes
+
+	if !shouldBePosted {
+		for _, reactor := range reactors {
+			shouldBePosted = shouldBePosted || reactor.ID == shankID
+		}
+	}
+
+	if shouldBePosted {
+		message, err := s.ChannelMessage(m.ChannelID, m.MessageID)
+		if err != nil {
+			return
+		}
+
+		// Construct structs to build our really weird embed message
+		embedAuthor := &discordgo.MessageEmbedAuthor{}
+		embedAuthor.Name = message.Author.Username
+		embedAuthor.IconURL = message.Author.AvatarURL("128")
+
+		source := &discordgo.MessageEmbedField{}
+		source.Name = "Original Post"
+		source.Value = "[Click me](https://discordapp.com/channels/474318493081403420/" + m.ChannelID + "/" + m.MessageID + ")"
+		source.Inline = true
+
+		fields := make([]*discordgo.MessageEmbedField, 1, 10)
+		fields[0] = source
+
+		embed := &discordgo.MessageEmbed{}
+		embed.Description = message.Content
+		embed.Author = embedAuthor
+		embed.Fields = fields
+
+		if len(message.Embeds) > 0 {
+			ogEmbed:= message.Embeds[0]
+			embed.URL = ogEmbed.URL
+			embed.Image = ogEmbed.Image
+			embed.Thumbnail = ogEmbed.Thumbnail
+			embed.Video = ogEmbed.Video
+			embed.Provider = ogEmbed.Provider
+
+			image := &discordgo.MessageEmbedImage{}
+			image.URL = ogEmbed.Thumbnail.URL
+			image.ProxyURL = ogEmbed.Thumbnail.ProxyURL
+			image.Width = ogEmbed.Thumbnail.Width
+			image.Height = ogEmbed.Thumbnail.Height
+			embed.Image = image
+		}
+
+		if len(message.Attachments) > 0 {
+			ogAttachment := message.Attachments[0]
+
+			image := &discordgo.MessageEmbedImage{}
+			image.URL = ogAttachment.URL
+			image.ProxyURL = ogAttachment.ProxyURL
+			image.Width = ogAttachment.Width
+			image.Height = ogAttachment.Height
+
+			embed.Image = image
+		}
+
+		s.ChannelMessageSendEmbed(fridgeChatID, embed)
+		s.MessageReactionAdd(m.ChannelID, m.MessageID, emojiIDDone)
+	}
+
 }
