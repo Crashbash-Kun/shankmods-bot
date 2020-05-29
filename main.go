@@ -47,6 +47,7 @@ func main() {
 
     // register callback for new messages
     dg.AddHandler(messageCreate)
+	dg.AddHandler(voiceStateUpdate)
 
     // Open a websocket, listen
     err = dg.Open()
@@ -169,4 +170,31 @@ func setStatus(s *discordgo.Session) {
         s.UpdateStatus(-1, "Modding it up")
         time.Sleep(5 * time.Minute)
     }
+}
+
+/*
+    Handler that activates when a user's voice-status changes.
+	If the user is joining a voice channel, they are given a role. If they
+	are disconnecting from VC then the role is removed.
+*/
+func voiceStateUpdate(s *discordgo.Session, v *discordgo.VoiceStateUpdate) {
+	vcRole  := "715712953990512780" // Prod
+	guildID := "474318493081403420" // Prod
+	//guildID := "705153111412703324" // Test
+	//vcRole  := "715712631541071924" // Test
+
+	// Give role if the VC channel is in the server
+	if	v.ChannelID != "" && v.GuildID == guildID {
+		err := s.GuildMemberRoleAdd(guildID, v.UserID, vcRole)
+		if err != nil {
+			fmt.Println("Adding vc role:", err)
+		}
+		
+	// Remove role if they join another server's VC chat, or disconnect from VC in the server
+	} else if v.GuildID == guildID {
+		err := s.GuildMemberRoleRemove(guildID, v.UserID, vcRole)
+		if err != nil {
+			fmt.Println("Remove vc role:", err)
+		}
+	}
 }
