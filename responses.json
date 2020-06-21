@@ -1,10 +1,11 @@
 {
-    "help": "This bot was written by CrashBash, contact him for adding content. Publicly advertised commands:\n!bb, !bbstore, !pms, !gc+, !wii, !revisions, !trim, !trim6, !usb, !18650, !leak",
+    "help": "This bot was written by CrashBash, contact him for adding content. Publicly advertised commands:\n!bb, !bbstore, !3ds, !gboyparts, !pms, !gc+, !wii, !revisions, !trim, !trim6, !usb, !18650 or !batteries, !leak, !joycons",
     "wah": "This is far from the best way of doing this, but I'm lazy\/busy right now ok. https:\/\/i.imgur.com\/TuUX4Nv.gif",
     "3ds": "<https:\/\/3ds.hacks.guide>",
-    "bb": "<https:\/\/bitbuilt.net>",
-    "bbf": "<https:\/\/bitbuilt.net>",
+    "bb": "<https:\/\/bitbuilt.net/forums>",
+    "bbf": "<https:\/\/bitbuilt.net/forums>",
     "bbstore": "<https:\/\/store.bitbuilt.net\/forums>",
+    "gboyparts": "<https:\/\/youtu.be\/ibEHNPeNV\-Y>",
     "pms": "The PMS is a custom board designed by Gman that has the combined functionality of voltage regulation and battery management all in a small easy to use board. It is avaiable to purchase from teh BB-store.\n<https:\/\/store.bitbuilt.net\/rvl-power-management-system\/>",
     "gc+": "<https:\/\/store.bitbuilt.net\/gc-v2-0-replacement-controller-board\/>",
     "wii": "<https:\/\/bitbuilt.net\/forums\/index.php?forums\/wii.101\/>",
@@ -14,6 +15,6 @@
     "usb": "This is the best drive the community has found regarding PortabilizeMii support: <https:\/\/www.amazon.com\/gp\/product\/B0028R3NCU\/>",
     "18650": "These are recommended batteries for use with a PMS: <https:\/\/mabdelectronics.com\/collections\/samsung-sdi-18650-high-drain-flat-top-rechargeable-batteries\/products\/samsung-inr-18650-35e-8a-3500mah-high-drain-flat-top-rechargeable-battery>",
     "batteries": "These are recommended batteries for use with a PMS: <https:\/\/mabdelectronics.com\/collections\/samsung-sdi-18650-high-drain-flat-top-rechargeable-batteries\/products\/samsung-inr-18650-35e-8a-3500mah-high-drain-flat-top-rechargeable-battery>",
-    "joyconsoldering": "This is the kind of soldering required for creating GC Joycons.\nhttps:\/\/bitbuilt.net\/forums\/index.php?attachments\/joyconsolder-jpg.10489\/",
+    "joycons": "This is the kind of soldering required for creating GC Joycons.\nhttps:\/\/bitbuilt.net\/forums\/index.php?attachments\/joyconsolder-jpg.10489\/",
     "leak": "Do _not_ post links to the recent Nintendo leaks - doing so _will_ result in an immediate ban.\nThe leak is _NOT_ useful to portabilizing and using info from them would be highly illegal. The leaks also only contain things known through _completely legal_ reverse engineering.\nhttps:\/\/twitter.com\/marcan42\/status\/1258076270308425728 https:\/\/twitter.com\/marcan42\/status\/1258283541101572097"
 }
