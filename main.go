@@ -201,7 +201,8 @@ func voiceStateUpdate(s *discordgo.Session, v *discordgo.VoiceStateUpdate) {
 }
 
 /*
-
+    Check for messages in #fridge-submissions getting a certain reaction above a certain amount.
+    If this is achieved, post it in another channel.
 */
 func messageReactionAdd(s *discordgo.Session, m *discordgo.MessageReactionAdd) {
     shankID := "265697070093041666"
@@ -209,7 +210,7 @@ func messageReactionAdd(s *discordgo.Session, m *discordgo.MessageReactionAdd) {
     fridgeChatID := "715819525517344818"
     emojiID := "🧲"
     emojiIDDone :="❤️"
-    requiredLikes := 5
+    requiredLikes := 10
 
     // Check this is in the right channel
     if m.ChannelID != submissionID {
